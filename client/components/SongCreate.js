@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import { Link, hashHistory } from "react-router";
-import query from "./queries/fetchSongs";
+import query from "../queries/fetchSongs";
 
 class SongCreate extends Component {
   constructor(props) {
@@ -17,9 +17,8 @@ class SongCreate extends Component {
     this.props
       .mutate({
         variables: { title: this.state.title },
-        refetchQueries: [{ query: query }],
+        refetchQueries: [{ query }],
       })
-      //   hashHistory takes you back to homepage after entering song
       .then(() => hashHistory.push("/"));
   }
 
@@ -47,4 +46,5 @@ const mutation = gql`
     }
   }
 `;
+
 export default graphql(mutation)(SongCreate);
